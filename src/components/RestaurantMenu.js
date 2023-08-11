@@ -1,32 +1,40 @@
-import { useEffect } from "react";
-const RestaurantMenu = ()=>{
-    useEffect(()=>{
-        fetchMenu();
-    },[])
-    const fetchMenu =async()=>{
-     const data = await fetch("https://www.zomato.com/webroutes/auth/init")       
-    
+import { useEffect, useState } from "react";
+import Shimmer from "./Shimmer";
+import { Menu_API } from "../utils/constants";
+import { useParams } from "react-router-dom";
+
+const RestaurantMenu = () => {
+  const [resInfo, setResInfo] = useState(null);
+  const { resId } = useParams();
+
+  useEffect(() => {
+    fetchMenu();
+  }, []);
+  const fetchMenu = async () => {
+    const data = await fetch(Menu_API + resId);
+
     const json = await data.json();
-    console.log(json)}
-    return (
-        <div>
-            <h1>Name of Restautant.</h1>
-            <h2>Menu</h2>
-            <ul>
-                <li>
-                    Paneer
-                </li>
-                <li>
-                    Veg Dum Aloo
-                </li>
-                <li>
-                    Sahi Paneer
-                </li>
-                <li>
-                    Kadai Paneer
-                </li>
-            </ul>
-        </div>
-    )
-}
+    setResInfo(json.data);
+    console.log(json);
+  };
+  
+  if (resInfo === null) return <Shimmer />;
+  
+  const { name, cuisines } = resInfo?.cards[0]?.card?.card?.info;
+
+//   const { itemCards } = resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card;
+//   console.log(itemCards); 
+  return (
+    <div>
+      <h1>{name}</h1>
+      <h1>{cuisines.join(",")}</h1>
+      <h2>Menu</h2>
+      {/* <ul>
+        {itemCards.map((item) => (
+          <li>{item.card.info.name}-{"Rs."}{item.card.info.price/100 || item.card.info.defaultPrice/100}</li>
+        ))}
+      </ul> */}
+    </div>
+  );
+};
 export default RestaurantMenu;
