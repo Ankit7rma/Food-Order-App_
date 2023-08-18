@@ -7,14 +7,14 @@ class About extends React.Component {
     console.log("Parent Constructor")
   }
 componentDidMount(){
-  console.log('Parent Component did Mount')
+  // console.log('Parent Component did Mount')
 }
   render() {
-    console.log('Parent Render')
+    // console.log('Parent Render')
     return (
       <div>
         <UserClass name={"Ankit (Class)"} />
-        <UserClass name={"Anuj (Class)"} />
+        {/* <UserClass name={"Anuj (Class)"} /> */}
       </div>
     );
   }

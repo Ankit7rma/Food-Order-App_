@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header.js";
 import Body from "./components/Body.js";
@@ -9,6 +9,8 @@ import Contact from "./components/Contact.js"
 import Error from "./components/Error.js";
 import Cart from "./components/Cart.js";
 import RestaurantMenu from "./components/RestaurantMenu.js";
+import { lazy } from "react";
+// import Grocery from "./components/Grocery.js";
 
 // How we use inline css in jsx
 
@@ -56,7 +58,7 @@ import RestaurantMenu from "./components/RestaurantMenu.js";
 const Footer = () => {
   return <h4>Footer</h4>;
 };
-
+const Grocery = lazy(()=>import('./components/Grocery.js'))
 const AppLayout = () => {
   return (
     <>
@@ -84,9 +86,14 @@ const appRouter  = createBrowserRouter([
       element:<Contact/>
     }
     ,{
-      path:"/Cart",
-      element:<Cart/>
-    }
+      path:"/grocery",
+      element:<Suspense fallback={<h1>Error h Code nhi</h1>}>
+      <Grocery/>
+      </Suspense>
+          },{
+            path:"/cart",
+            element:<Cart/>
+          }
     ,{
       path:"/restaurants/:resId",
       element:<RestaurantMenu/>
