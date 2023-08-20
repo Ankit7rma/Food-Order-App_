@@ -7,30 +7,36 @@ import useOnlineStatus from "../utils/useOnlineStatus";
 const css = {
   backgroundColor: "#FFF380",
 };
-const Title = () => {
-  return <img className="logo" alt="Logo" src={LOGO_URL} />;
-};
+
 export const Header = () => {
   const [btnName, setBtnName] = useState("Login");
-const onlineStatus= useOnlineStatus();
+  const onlineStatus = useOnlineStatus();
   return (
-    <div className="header" style={css}>
-      <Title />
-      {
-        //This is comment
-      }
-      <div className="nav-item">
-        <ul>
-        <li>Online Status:{onlineStatus?'😁':'😴'}</li>
-          <li>
-          <Link to="/">Home </Link>
+    <div className="flex justify-between bg-pink-100 shadow-md sm:bg-yellow-100 lg:bg-green-100">
+      <div className="logo-container">
+        <img className="w-20" alt="Logo" src={LOGO_URL} />
+      </div>
+      <div className="flex items-center">
+        <ul className="flex p-4 m-4" >
+          <li className="px-4">Online Status:{onlineStatus ? "😁" : "😴"}</li>
+          <li className="px-4">
+            <Link to="/">Home </Link>
           </li>
-          <li> <Link to="/About">About </Link></li>
-          <li><Link to="/Contact">Contact </Link></li>
-          <li><Link to="/grocery">Grocery </Link></li>
-          <li><Link to="/Cart">Cart </Link></li>
+          <li className="px-4"> 
+            {" "}
+            <Link to="/About">About </Link>
+          </li>
+          <li className="px-4"> 
+            <Link to="/Contact">Contact </Link>
+          </li>
+          <li className="px-4">
+            <Link to="/grocery">Grocery </Link>
+          </li>
+          <li className="px-4"> 
+            <Link to="/Cart">Cart </Link>
+          </li>
           <button
-            className="login"
+            className="login px-4 border border-black bg-purple-400"
             onClick={() =>
               btnName === "Login" ? setBtnName("Logout") : setBtnName("Login")
             }
