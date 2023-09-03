@@ -1,4 +1,5 @@
 import React from 'react';
+
 class UserClass extends React.Component{
     constructor(props){
         super(props);
@@ -34,6 +35,7 @@ class UserClass extends React.Component{
         return (
             <div>
             <h2>Name: {name} </h2>
+        
             <h2>Location: {location} </h2>
             <h2>id: {id} </h2>
             <img src={avatar_url}/>

@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect ,useState} from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header.js";
 import Body from "./components/Body.js";
@@ -10,8 +10,10 @@ import Error from "./components/Error.js";
 import Cart from "./components/Cart.js";
 import RestaurantMenu from "./components/RestaurantMenu.js";
 import { lazy } from "react";
+import userContext from "./components/userContext.js";
 // import Grocery from "./components/Grocery.js";
-
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore.js";
 // How we use inline css in jsx
 
 
@@ -60,12 +62,25 @@ const Footer = () => {
 };
 const Grocery = lazy(()=>import('./components/Grocery.js'))
 const AppLayout = () => {
+  const [userName,setUserName] = useState()
+  //Authentication
+  useEffect(()=>{
+    //make an API call and send username and password
+    const data ={
+      name :'Ankit Sharma Api '
+  }
+  setUserName(data.name)
+  },[])
   return (
-    <>
+    <Provider store={appStore}>
+    <userContext.Provider value ={{loggedInUser:userName,setUserName}}>
+    <div className="app">
       <Header />
       <Outlet />
       <Footer />
-    </>
+    </div>
+    </userContext.Provider>
+    </Provider>
   );
 };
 
